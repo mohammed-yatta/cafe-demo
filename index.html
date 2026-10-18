@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Atlas — Café & Pâtisserie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+      font-family: 'Poppins', sans-serif;
+      background: #1a1410;
+      color: #f0e6d8;
+      scroll-behavior: smooth;
+    }
+
+/* ---------- HERO ---------- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      background:
+        radial-gradient(ellipse at 50% 20%, rgba(184,134,11,0.25), transparent 55%),
+        radial-gradient(ellipse at 80% 90%, rgba(122,77,42,0.35), transparent 50%),
+        linear-gradient(160deg, #1a1410 0%, #2b1d12 60%, #3a2415 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    /* decorative steam / glow */
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,175,55,0.18), transparent 70%);
+      top: -150px; left: 50%;
+      transform: translateX(-50%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      50% { opacity: 1; transform: translateX(-50%) scale(1.15); }
+    }
+
+.hero .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 9vw, 84px);
+      font-weight: 800;
+      letter-spacing: 6px;
+      color: #f5ecdd;
+      text-shadow: 0 4px 30px rgba(212,175,55,0.4);
+      position: relative;
+      animation: fadeUp 1.2s ease both;
+    }
+    .hero .logo span { color: #d4af37; }
+
+.hero .tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(18px, 3.5vw, 26px);
+      color: #c9b48a;
+      margin-top: 14px;
+      animation: fadeUp 1.2s 0.3s ease both;
+    }
+
+.hero .line {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, #d4af37, transparent);
+      margin: 30px auto;
+      animation: fadeUp 1.2s 0.5s ease both;
+    }
+
+.hero .open {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(212,175,55,0.5);
+      color: #d4af37;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: fadeUp 1.2s 0.7s ease both;
+      backdrop-filter: blur(4px);
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #4ade80;
+      animation: blink 2s infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      font-size: 26px;
+      color: #d4af37;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+@keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+/* ---------- SECTIONS ---------- */
+    section { max-width: 900px; margin: 0 auto; padding: 90px 20px; }
+
+.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 5vw, 44px);
+      text-align: center;
+      color: #f5ecdd;
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #9c866a;
+      font-size: 14px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 50px;
+    }
+    .section-title em { color: #d4af37; }
+
+/* ---------- MENU ---------- */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px 50px;
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(212,175,55,0.15);
+      transition: 0.3s;
+      cursor: default;
+    }
+    .menu-item:hover {
+      padding-left: 12px;
+      border-bottom-color: #d4af37;
+    }
+    .menu-item .name {
+      font-size: 17px;
+      color: #f0e6d8;
+    }
+    .menu-item .name small {
+      display: block;
+      color: #8a7a64;
+      font-size: 12px;
+      font-weight: 300;
+    }
+    .menu-item .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #d4af37;
+      white-space: nowrap;
+      padding-left: 20px;
+    }
+
+/* ---------- INFO CARDS ---------- */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: linear-gradient(160deg, #261a11, #1a1410);
+      border: 1px solid rgba(212,175,55,0.25);
+      border-radius: 20px;
+      padding: 35px 20px;
+      text-align: center;
+      transition: 0.4s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: #d4af37;
+      box-shadow: 0 20px 40px rgba(212,175,55,0.15);
+    }
+    .card .icon {
+      font-size: 34px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .card h3 {
+      color: #d4af37;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .card p { color: #b5a48c; font-size: 14px; font-weight: 300; line-height: 1.7; }
+
+/* ---------- GALLERY ---------- */
+        
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    .photo {
+      height: 180px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+      transition: 0.4s;
+      filter: saturate(0.9);
+    }
+    .photo:hover { transform: scale(1.04); filter: saturate(1.2); }
+    .photo.p1 { background: linear-gradient(135deg, #6b3f1d, #3a2415); }
+    .photo.p2 { background: linear-gradient(135deg, #8a5a2b, #4a2e15); }
+    .photo.p3 { background: linear-gradient(135deg, #4d3319, #2b1a0c); }
+    .photo.p4 { background: linear-gradient(135deg, #7a4a22, #35200f); }
+        .photo img { width: 72px; height: 72px; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4)); }
+
+
+
+/* ---------- REVIEWS ---------- */
+    .reviews {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .review {
+      background: rgba(212,175,55,0.06);
+      border-left: 3px solid #d4af37;
+      border-radius: 0 16px 16px 0;
+      padding: 25px;
+    }
+    .review .stars { color: #d4af37; letter-spacing: 3px; }
+    .review p { color: #cabba5; font-size: 14px; font-weight: 300; line-height: 1.8; margin: 12px 0; }
+    .review .who { color: #8a7a64; font-size: 13px; }
+
+/* ---------- CTA ---------- */
+    .cta {
+      text-align: center;
+      padding: 90px 20px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(212,175,55,0.15), transparent 60%);
+    }
+    .btn {
+      display: inline-block;
+      padding: 18px 40px;
+      margin: 8px;
+      border-radius: 60px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: 0.35s;
+    }
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25d366, #1da851);
+      color: white;
+      box-shadow: 0 10px 30px rgba(37,211,102,0.3);
+    }
+    .btn-whatsapp:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 16px 40px rgba(37,211,102,0.45); }
+    .btn-map {
+      background: transparent;
+      color: #d4af37;
+      border: 1.5px solid #d4af37;
+    }
+    .btn-map:hover { background: #d4af37; color: #1a1410; }
+
+/* ---------- FLOATING WHATSAPP ---------- */
+    .float-wa {
+      position: fixed;
+      bottom: 25px; right: 25px;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25d366, #1da851);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(37,211,102,0.4);
+      z-index: 100;
+      animation: floaty 3s ease-in-out infinite;
+    }
+    .float-wa:hover { transform: scale(1.1); }
+    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+/* ---------- FOOTER ---------- */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(212,175,55,0.2);
+      color: #8a7a64;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+    footer .name { color: #d4af37; font-family: 'Playfair Display', serif; font-size: 16px; }
+
+/* ---------- SCROLL REVEAL ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: 0.9s ease;
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+  <div class="hero">
+    <div class="logo">CAFÉ <span>ATLAS</span></div>
+    <div class="tagline">Café & Pâtisserie — au cœur de la ville</div>
+    <div class="line"></div>
+    <div class="open"><span class="dot"></span> OUVERT · 7H — 23H</div>
+    <div class="scroll-hint">⌄</div>
+  </div>
+
+<!-- MENU -->
+  <section>
+    <h2 class="section-title reveal">Notre <em>Menu</em></h2>
+    <p class="section-sub reveal">Fait avec passion, servi avec le sourire</p>
+    <div class="menu-grid">
+      <div class="menu-item reveal"><span class="name">Café expresso<small>Café de la maison</small></span><span class="price">8 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Café nous-nous<small>Le classique marocain</small></span><span class="price">10 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Thé à la menthe<small>Servi à la marocaine</small></span><span class="price">12 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Jus d'orange frais<small>Pressé devant vous</small></span><span class="price">15 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Msemen / Harcha<small>Chauds du matin</small></span><span class="price">10 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Croissant<small>Beurre, amandes</small></span><span class="price">7 DH</span></div>
+      <div class="menu-item reveal"><span class="name">Petit-déjeuner complet<small>Café, pain, huile d'olive & confiture</small></span><span class="price">30 DH</span></div>
+    </div>
+  </section>
+
+<!-- GALLERY -->
+  <section>
+    <h2 class="section-title reveal">L'<em>Ambiance</em></h2>
+    <p class="section-sub reveal">Un moment d'Atlas, chaque jour</p>
+    <div class="gallery reveal">
+      <div class="photo p1"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2615.svg" alt="Café"></div>
+      <div class="photo p2"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f950.svg" alt="Croissant"></div>
+      <div class="photo p3"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f375.svg" alt="Thé"></div>
+      <div class="photo p4"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f956.svg" alt="Pain"></div>
+    </div>
+  </section>
+
+<!-- INFOS -->
+  <section>
+    <h2 class="section-title reveal">Nous <em>Trouver</em></h2>
+    <p class="section-sub reveal">Venez nous voir</p>
+    <div class="cards">
+      <div class="card reveal"><span class="icon">📍</span><h3>Adresse</h3><p>Avenue Mohammed V<br>Casablanca</p></div>
+      <div class="card reveal"><span class="icon">📞</span><h3>Téléphone</h3><p>06 12 34 56 78</p></div>
+      <div class="card reveal"><span class="icon">🕒</span><h3>Horaires</h3><p>Tous les jours<br>7h — 23h</p></div>
+    </div>
+  </section>
+
+<!-- REVIEWS -->
+  <section>
+    <h2 class="section-title reveal">Ils <em>Adorent</em></h2>
+    <div class="reviews">
+      <div class="review reveal"><span class="stars">★★★★★</span><p>"Le meilleur nous-nous du quartier, et l'accueil est toujours chaleureux."</p><span class="who">— Yassine B.</span></div>
+      <div class="review reveal"><span class="stars">★★★★★</span><p>"Petit-déjeuner complet à 30 DH, on ne trouve pas mieux ailleurs."</p><span class="who">— Salma E.</span></div>
+      <div class="review reveal"><span class="stars">★★★★★</span><p>"Mon spot préféré pour travailler, calme le matin et bon café."</p><span class="who">— Omar T.</span></div>
+    </div>
+  </section>
+
+<!-- CTA -->
+  <div class="cta">
+    <h2 class="section-title reveal">Prêt à <em>Commander</em> ?</h2>
+    <p class="section-sub reveal">Un message suffit</p>
+    <div class="reveal">
+      <a class="btn btn-whatsapp" href="https://wa.me/212612345678">💬 Commander sur WhatsApp</a>
+      <a class="btn btn-map" href="https://maps.google.com/?q=Cafe+Atlas+Casablanca">🗺️ Google Maps</a>
+    </div>
+  </div>
+
+<footer>
+    <span class="name">Café Atlas</span><br><br>
+    Avenue Mohammed V · Casablanca · © 2026
+  </footer>
+
+<!-- FLOATING WHATSAPP -->
+  <a class="float-wa" href="https://wa.me/212612345678" title="Commander sur WhatsApp">💬</a>
+
+<!-- SCROLL REVEAL SCRIPT -->
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
